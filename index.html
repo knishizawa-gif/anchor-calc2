@@ -15,20 +15,14 @@
             --border-color: #dfe6e9;
             --text-main: #2d3436;
             --text-sub: #636e72;
-            --highlight: #fff9db;
         }
-
         body {
             font-family: 'Noto Sans JP', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
+            margin: 0; padding: 0; line-height: 1.6;
         }
-
         .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
-
         header {
             text-align: center;
             padding: 40px 0;
@@ -36,106 +30,47 @@
             border-bottom: 1px solid var(--border-color);
             margin-bottom: 30px;
         }
-
         h1 { margin: 0; font-size: 1.8rem; color: var(--primary-color); }
         .sub-title { color: var(--text-sub); font-size: 0.9rem; margin-top: 5px; }
-
-        /* タブ切り替え */
-        .tabs {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
+        .tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
         .tab-btn {
-            padding: 10px 25px;
-            border: 2px solid var(--border-color);
-            background: #fff;
-            cursor: pointer;
-            border-radius: 30px;
-            font-weight: bold;
-            transition: 0.3s;
+            padding: 10px 25px; border: 2px solid var(--border-color);
+            background: #fff; cursor: pointer; border-radius: 30px;
+            font-weight: bold; transition: 0.3s;
         }
         .tab-btn.active {
-            background: var(--primary-color);
-            color: #fff;
-            border-color: var(--primary-color);
+            background: var(--primary-color); color: #fff; border-color: var(--primary-color);
         }
-
-        .main-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-        }
-
+        .main-content { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
         .card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            border: 1px solid var(--border-color);
+            background: var(--card-bg); border-radius: 12px; padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid var(--border-color);
         }
-
         h3 { border-left: 5px solid var(--accent-color); padding-left: 10px; margin-top: 0; font-size: 1.1rem; }
-
         .input-group { margin-bottom: 15px; }
         label { display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 5px; color: var(--text-sub); }
         select, input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            font-size: 1rem;
-            background: #fff;
+            width: 100%; padding: 12px; border: 1px solid var(--border-color);
+            border-radius: 6px; font-size: 1rem; background: #fff;
         }
         input[readonly] { background: #f9f9f9; color: #7f8c8d; }
-
         .btn-calc {
-            width: 100%;
-            padding: 15px;
-            background: var(--success-color);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 10px;
+            width: 100%; padding: 15px; background: var(--success-color);
+            color: white; border: none; border-radius: 8px;
+            font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 10px;
         }
-        .btn-calc:hover { opacity: 0.9; }
-
-        /* 結果表示エリア */
         #result-display {
-            white-space: pre-wrap;
-            font-family: monospace;
-            font-size: 0.9rem;
-            background: #fdfdfd;
-            padding: 15px;
-            border: 1px solid #eee;
-            border-radius: 6px;
-            margin-top: 15px;
+            white-space: pre-wrap; font-family: monospace; font-size: 0.9rem;
+            background: #fdfdfd; padding: 15px; border: 1px solid #eee;
+            border-radius: 6px; margin-top: 15px;
         }
-
         .summary-box {
-            background: var(--primary-color);
-            color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 20px;
-            text-align: center;
+            background: var(--primary-color); color: #fff; padding: 20px;
+            border-radius: 8px; margin-top: 20px; text-align: center;
         }
         .summary-val { font-size: 2rem; font-weight: bold; color: #f1c40f; }
-
-        @media (max-width: 850px) {
-            .main-content { grid-template-columns: 1fr; }
-        }
-
-        /* 印刷設定 */
-        @media print {
-            .tabs, .btn-calc, .no-print { display: none !important; }
-            body { background: white; }
-            .card { box-shadow: none; border: 1px solid #000; }
-        }
+        @media (max-width: 850px) { .main-content { grid-template-columns: 1fr; } }
+        @media print { .tabs, .btn-calc { display: none !important; } }
     </style>
 </head>
 <body>
@@ -156,147 +91,20 @@
     <div class="main-content">
         <section class="card">
             <h3>設計条件入力</h3>
-            <div class="input-grid">
-                <div class="input-group">
-                    <label>アンカーサイズ</label>
-                    <select id="anchorSize" onchange="updateValues()"></select>
-                </div>
-                <div class="input-group">
-                    <label>鋼材の材質 (降伏強度)</label>
-                    <select id="material" onchange="updateValues()"></select>
-                </div>
-                <div class="input-group">
-                    <label>有効断面積 $a_o$ (mm²)</label>
-                    <input id="area" readonly type="text"/>
-                </div>
-                <div class="input-group">
-                    <label>埋込み深さ (mm)</label>
-                    <input id="embedDepth" type="number" value="100" onchange="updateValues()">
-                </div>
-                <div class="input-group" id="tipTypeGroup">
-                    <label>先端形式</label>
-                    <select id="tipType" onchange="updateValues()">
-                        <option value="cut">45°カット（カプセル）</option>
-                        <option value="thread">寸切り（カートリッジ）</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>コンクリート圧縮強度 $F_c$ (N/mm²)</label>
-                    <input id="f_c" type="number" value="21">
-                </div>
-                <button class="btn-calc" onclick="calculate()">計算を実行する</button>
+            <div class="input-group">
+                <label>アンカーサイズ</label>
+                <select id="anchorSize" onchange="updateValues()"></select>
             </div>
-        </section>
-
-        <section class="card">
-            <h3>計算結果</h3>
-            <div id="result-display">数値を入力して計算ボタンを押してください。</div>
-            <div id="summary-area" style="display:none;">
-                <div class="summary-box">
-                    <div>設計許容引張荷重 ($T_a$)</div>
-                    <div class="summary-val" id="final-ta">--</div>
-                    <div style="font-size: 0.8rem;">kN / 本</div>
-                </div>
-                <div style="margin-top:15px; text-align:center;">
-                    <button onclick="window.print()" style="padding:8px 15px; cursor:pointer;">PDF/印刷出力</button>
-                </div>
+            <div class="input-group">
+                <label>鋼材の材質 (降伏強度)</label>
+                <select id="material" onchange="updateValues()"></select>
             </div>
-        </section>
-    </div>
-</div>
-
-<script>
-    // データの定義
-    const data = {
-        CHEMICAL: {
-            sizes: { "M10": 58.0, "M12": 84.3, "M16": 157.0, "M20": 245.0, "M24": 353.0, "D10": 71.3, "D13": 126.7, "D16": 198.6, "D19": 286.5, "D22": 387.1 },
-            materials: { "SS400": 235, "SD295": 295, "SD345": 345, "SUS304": 205 }
-        },
-        METAL: {
-            sizes: { "M10": 58.0, "M12": 84.3, "M16": 157.0, "M20": 245.0 },
-            materials: { "SS400": 235, "SUS304": 205 }
-        }
-    };
-
-    let currentMode = 'CHEMICAL';
-
-    function switchType(mode, btn) {
-        currentMode = mode;
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        
-        // 先端形式の表示切り替え（金属系では不要な場合が多い）
-        document.getElementById('tipTypeGroup').style.display = (mode === 'CHEMICAL') ? 'block' : 'none';
-        
-        initSelects();
-    }
-
-    function initSelects() {
-        const sizeSelect = document.getElementById('anchorSize');
-        const matSelect = document.getElementById('material');
-        sizeSelect.innerHTML = '';
-        matSelect.innerHTML = '';
-
-        for (let s in data[currentMode].sizes) {
-            sizeSelect.add(new Option(s, s));
-        }
-        for (let m in data[currentMode].materials) {
-            matSelect.add(new Option(m, data[currentMode].materials[m]));
-        }
-        updateValues();
-    }
-
-    function updateValues() {
-        const size = document.getElementById('anchorSize').value;
-        document.getElementById('area').value = data[currentMode].sizes[size];
-    }
-
-    function calculate() {
-        const fy = parseFloat(document.getElementById('material').value);
-        const area = parseFloat(document.getElementById('area').value);
-        const fc = parseFloat(document.getElementById('f_c').value);
-        const embed = parseFloat(document.getElementById('embedDepth').value);
-        const sizeStr = document.getElementById('anchorSize').value;
-        const d = parseInt(sizeStr.replace(/[^0-9]/g, ''));
-        const tip = document.getElementById('tipType').value;
-
-        // 有効埋込み長さ
-        const le = (currentMode === 'CHEMICAL' && tip === 'cut') ? embed - d : embed;
-        
-        // 1. 鋼材強度 Ta1
-        const Ta1 = (fy * area) / 1000;
-
-        // 2. コーン状破壊 Ta2
-        const Ac = (currentMode === 'CHEMICAL' && tip === 'cut') 
-                   ? Math.PI * le * (le + d) 
-                   : Math.PI * le * le;
-        const Ta2 = (0.23 * Math.sqrt(fc) * Ac) / 1000;
-
-        // 3. 付着強度 Ta3 (接着系のみ)
-        let Ta3 = Infinity;
-        if (currentMode === 'CHEMICAL') {
-            const tau = 10 * Math.sqrt(fc / 21);
-            Ta3 = (tau * Math.PI * d * le) / 1000;
-        }
-
-        const Ta = Math.min(Ta1, Ta2, Ta3);
-        const testLoad = Ta * (2/3);
-
-        // 結果表示
-        let report = `【計算詳細: ${currentMode === 'CHEMICAL' ? '接着系' : '金属系'}】\n`;
-        report += `・鋼材引張耐力 (Ta1): ${Ta1.toFixed(2)} kN\n`;
-        report += `・コンクリート破壊 (Ta2): ${Ta2.toFixed(2)} kN\n`;
-        if (currentMode === 'CHEMICAL') report += `・付着割裂耐力 (Ta3): ${Ta3.toFixed(2)} kN\n`;
-        report += `----------------------------\n`;
-        report += `現場引張試験の目安 (Ta × 2/3): ${testLoad.toFixed(2)} kN`;
-
-        document.getElementById('result-display').innerText = report;
-        document.getElementById('final-ta').innerText = Ta.toFixed(2);
-        document.getElementById('summary-area').style.display = 'block';
-    }
-
-    window.onload = initSelects;
-</script>
-
-</body>
-</html>
+            <div class="input-group">
+                <label>有効断面積 ao (mm²)</label>
+                <input id="area" readonly type="text"/>
+            </div>
+            <div class="input-group">
+                <label>埋込み深さ (mm)</label>
+                <input id="embedDepth" type="number" value="100" onchange="updateValues()">
+            </div>
+            <div class="input-group" id="tipTypeGroup">
